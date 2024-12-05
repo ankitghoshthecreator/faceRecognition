@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
             val intent=Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
             if (intent.resolveActivity(packageManager)!=null){
+                startActivityForResult(intent, 123)
 
             }else{
                 Toast.makeText(this, "something went wrong", Toast.LENGTH_SHORT).show()
@@ -35,6 +36,15 @@ class MainActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (123==requestCode && RESULT_OK==resultCode && data !=null){
+            val extras=data?.extras
         }
     }
 }
