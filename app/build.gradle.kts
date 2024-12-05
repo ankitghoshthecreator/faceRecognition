@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation ("com.google.mlkit:face-detection:16.1.7")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
