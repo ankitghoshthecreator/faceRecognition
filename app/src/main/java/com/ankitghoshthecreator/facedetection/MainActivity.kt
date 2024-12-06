@@ -10,6 +10,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
 
 class MainActivity : AppCompatActivity() {
@@ -60,6 +62,35 @@ class MainActivity : AppCompatActivity() {
             .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
             .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
             .build()
+
+
+        val detector= FaceDetection.getClient(options)
+        val image = InputImage.fromBitmap(bitmap!!, 0)
+
+
+
+        val result = detector.process(image)
+            .addOnSuccessListener { faces ->
+                // Task completed successfully, face successfully detected
+                var resultText= " "
+
+                var i=1
+
+                for(face in faces){
+                    resultText= "Face Number: $i" +
+                            "Smile: ${face.smilingProbability?.times(100)}%"
+                    i++
+                }
+                if(faces.isEmpty()){
+                    Toast.makeText(this, "no face", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, resultText, Toast.LENGTH_LONG).show()
+                }
+            }
+            .addOnFailureListener { e ->
+                // Task failed with an exception, face not successfully detected
+                // ...
+            }
 
     }
 }
