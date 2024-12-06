@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 // Task failed with an exception, face not successfully detected
-                // ...
+                Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
             }
 
     }
